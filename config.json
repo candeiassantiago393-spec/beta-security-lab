@@ -1,5 +1,11 @@
 {
   "retention_hours": 10,
   "port": "COM8",
-  "baud": 115200
+  "baud": 115200,
+  "night_start": 20,
+  "night_end": 8,
+  "wifi_ssid": "",
+  "wifi_password": "",
+  "listen_host": "0.0.0.0",
+  "listen_port": 8080
 }

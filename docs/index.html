@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>beta-security-lab</title>
   <style>
-    :root { --bg:#111418; --text:#e8edf2; --muted:#9aa6b2; --accent:#c9a227; --line:#2a323c; }
+    :root { --bg:#111418; --text:#e8edf2; --muted:#9aa6b2; --accent:#c9a227; --line:#2a323c; --panel:#1b2026; }
     body { margin:0; font-family:Segoe UI,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
-    main { max-width:720px; margin:0 auto; padding:48px 24px; }
+    main { max-width:760px; margin:0 auto; padding:48px 24px; }
     h1 { font-size:28px; margin:0 0 8px; }
     .badge { color:var(--accent); font-weight:650; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
     p, li { color:var(--muted); }
@@ -15,24 +15,27 @@
     .btn { display:inline-block; margin:16px 12px 0 0; padding:10px 16px; background:var(--accent); color:#111; text-decoration:none; font-weight:650; }
     .ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
     hr { border:0; border-top:1px solid var(--line); margin:32px 0; }
+    .note { background:var(--panel); border:1px solid var(--line); padding:16px; }
   </style>
 </head>
 <body>
   <main>
-    <div class="badge">Versão beta 0.1.1</div>
+    <div class="badge">Versão beta 0.2.0</div>
     <h1>beta-security-lab</h1>
-    <p>Captura na entrada do escritório com LILYGO T-Camera S3 (PIR + câmara + OLED) e galeria no PC fixo via USB.</p>
-    <p>GitHub Pages só documenta o projeto. As fotos nunca passam por aqui: ficam no computador local.</p>
-    <a class="btn" href="http://127.0.0.1:8080">Abrir interface local</a>
+    <p>Captura na entrada do escritório com LILYGO T-Camera S3. Esta página é o link fixo do projeto.</p>
+    <div class="note">
+      <p>GitHub Pages <strong>não mostra as fotos</strong>. As imagens ficam no computador da torre. Para a galeria usa o IP da torre na rede local, por exemplo <code>http://192.168.1.x:8080</code>, com <code>.\start.ps1</code> a correr.</p>
+    </div>
     <a class="btn ghost" href="https://github.com/candeiassantiago393-spec/beta-security-lab">Código no GitHub</a>
     <hr />
-    <h2>Como usar</h2>
-    <ol>
-      <li>ESP32 ligado por USB à torre.</li>
-      <li>No PC, na pasta do projeto: <code>.\start.ps1</code></li>
-      <li>O botão acima abre <code>http://127.0.0.1:8080</code> neste computador.</li>
-      <li>PWR curto: pausar / armar. BOOT curto: foto manual.</li>
-    </ol>
+    <h2>Beta 0.2.0</h2>
+    <ul>
+      <li>3 fotos por movimento PIR (1 s de intervalo)</li>
+      <li>Noite 20:00–08:00 armada; de dia só com o botão PWR</li>
+      <li>Aviso no PC, filtros, ZIP, pasta diária no ambiente de trabalho</li>
+      <li>Watchdog PC offline / ESP32 desligado</li>
+      <li>Wi-Fi só se o USB falhar</li>
+    </ul>
   </main>
 </body>
 </html>

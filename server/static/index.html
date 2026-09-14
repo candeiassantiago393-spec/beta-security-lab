@@ -11,14 +11,24 @@
     <div>
       <h1>Entrada do escritorio</h1>
       <p id="status">A ligar ao ESP32...</p>
+      <p id="lan" class="sub"></p>
     </div>
     <div class="actions">
+      <label>Dia <input id="day" type="date" /></label>
       <label>
-        Apagar apos
-        <input id="hours" type="number" min="0" max="8760" />
-        horas
+        Origem
+        <select id="source">
+          <option value="all">Todas</option>
+          <option value="pir">PIR</option>
+          <option value="manual">Manual</option>
+          <option value="wifi">Wi-Fi</option>
+        </select>
       </label>
+      <label>Noite <input id="nightStart" type="number" min="0" max="23" />–<input id="nightEnd" type="number" min="0" max="23" /></label>
+      <label>Apagar apos <input id="hours" type="number" min="0" max="8760" /> h</label>
       <button id="save">Guardar</button>
+      <button id="zip">Exportar ZIP</button>
+      <button id="desk">Pasta no ambiente de trabalho</button>
       <button id="clear" class="danger">Apagar tudo</button>
     </div>
   </header>
