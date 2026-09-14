@@ -6,7 +6,7 @@
   <title>beta-security-lab</title>
   <style>
     :root { --bg:#111418; --text:#e8edf2; --muted:#9aa6b2; --accent:#c9a227; --line:#2a323c; --panel:#1b2026; }
-    body { margin:0; font-family:Segoe UI,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    body { margin:0; font-family:Segoe UI,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
     main { max-width:760px; margin:0 auto; padding:48px 24px; }
     h1 { font-size:28px; margin:0 0 8px; }
     .badge { color:var(--accent); font-weight:650; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
@@ -20,21 +20,25 @@
 </head>
 <body>
   <main>
-    <div class="badge">Versão beta 0.2.0</div>
+    <div class="badge">Documentação · beta 0.2.0</div>
     <h1>beta-security-lab</h1>
-    <p>Captura na entrada do escritório com LILYGO T-Camera S3. Esta página é o link fixo do projeto.</p>
+    <p>Captura na entrada do escritório com LILYGO T-Camera S3. As fotografias ficam no computador da torre.</p>
     <div class="note">
-      <p>GitHub Pages <strong>não mostra as fotos</strong>. As imagens ficam no computador da torre. Para a galeria usa o IP da torre na rede local, por exemplo <code>http://192.168.1.x:8080</code>, com <code>.\start.ps1</code> a correr.</p>
+      A documentação completa está no GitHub (README e pasta <code>docs/</code>). Esta página não mostra a galeria.
     </div>
-    <a class="btn ghost" href="https://github.com/candeiassantiago393-spec/beta-security-lab">Código no GitHub</a>
+    <a class="btn" href="https://github.com/candeiassantiago393-spec/beta-security-lab">Abrir documentação no GitHub</a>
+    <a class="btn ghost" href="https://github.com/candeiassantiago393-spec/beta-security-lab/tree/main/docs">Pasta docs/</a>
     <hr />
-    <h2>Beta 0.2.0</h2>
     <ul>
-      <li>3 fotos por movimento PIR (1 s de intervalo)</li>
-      <li>Noite 20:00–08:00 armada; de dia só com o botão PWR</li>
-      <li>Aviso no PC, filtros, ZIP, pasta diária no ambiente de trabalho</li>
-      <li>Watchdog PC offline / ESP32 desligado</li>
-      <li>Wi-Fi só se o USB falhar</li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/visao.md">Visão e funcionalidades</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/hardware.md">Hardware</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/instalacao.md">Instalação</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/servidor.md">Servidor e API</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/interface.md">Interface</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/firmware.md">Firmware</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/configuracao.md">Configuração</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/troubleshooting.md">Problemas frequentes</a></li>
+      <li><a href="https://github.com/candeiassantiago393-spec/beta-security-lab/blob/main/docs/privacidade.md">Privacidade</a></li>
     </ul>
   </main>
 </body>
