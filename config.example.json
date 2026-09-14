@@ -1,0 +1,5 @@
+{
+  "retention_hours": 168,
+  "port": "COM8",
+  "baud": 115200
+}

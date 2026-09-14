@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entrada do escritorio</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Entrada do escritorio</h1>
+      <p id="status">A ligar ao ESP32...</p>
+    </div>
+    <div class="actions">
+      <label>
+        Apagar apos
+        <input id="hours" type="number" min="0" max="8760" />
+        horas
+      </label>
+      <button id="save">Guardar</button>
+      <button id="clear" class="danger">Apagar tudo</button>
+    </div>
+  </header>
+  <main id="grid"></main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

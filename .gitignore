@@ -1,0 +1,16 @@
+.pio/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+.venv/
+venv/
+photos/
+*.jpg
+*.jpeg
+*.png
+!docs/**
+2026EC1409725.pdf
+*.pdf
+.env
+config.local.json
