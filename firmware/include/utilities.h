@@ -21,3 +21,4 @@
 #define I2C_SCL         (6)
 #define PIR_INPUT_PIN   (17)
 #define PMU_INPUT_PIN   (2)
+#define BOOT_BUTTON_PIN (0)

@@ -1,6 +1,6 @@
 # beta-security-lab
 
-**Estado: beta (0.1.0)**
+**Estado: beta (0.1.1)**
 
 Sistema local de captura na entrada do escritório: [LILYGO T-Camera S3 OV5640](https://github.com/Xinyuan-LilyGO/LilyGo-Cam-ESP32S3) com sensor PIR, ecrã OLED e envio das fotos por USB para um PC. A galeria corre num site Python no computador fixo.
 
@@ -26,18 +26,19 @@ Essa página explica o beta e tem um atalho para a interface local (`http://127.
 | Ligação | USB-C na torre do PC (CDC nativo Espressif `VID_303A`) |
 | Porta usada no desenvolvimento | COM8 |
 
-## Especificações atuais (beta 0.1.0)
+## Especificações atuais (beta 0.1.1)
 
 ### Firmware (`firmware/`)
 
 - Detecção por **PIR** (GPIO 17), não por análise de vídeo.
 - Aquecimento do PIR: **12 s** após boot.
-- Pausa mínima entre fotos: **8 s**.
+- Pausa mínima entre fotos PIR: **8 s**.
 - Resolução JPEG: **VGA** (640×480), qualidade 12.
 - Envio por série USB com cabeçalho `TCS3` + tamanho + JPEG.
-- OLED SSD1306 (I2C SDA 7 / SCL 6): `Aguardando`, `Movimento!`, `A fotografar...`, `Foto enviada`.
+- OLED SSD1306 (I2C SDA 7 / SCL 6): `Aguardando`, `Pausa`, `Movimento!`, `Foto manual`, `Foto enviada`.
 - PMU AXP2101 ligado (alimentação da câmara e do PIR).
-- Os dois botões físicos da placa **ainda não são usados pelo software** (ver sugestões no fim desta conversa / issues).
+- **PWR (toque curto):** arma / pausa o PIR. Toque longo (~4 s) continua a desligar a placa.
+- **BOOT (toque curto):** tira uma foto agora, mesmo em pausa. Não uses BOOT+RST ao mesmo tempo (isso entra em modo de gravação).
 
 ### Servidor e interface (`server/`)
 

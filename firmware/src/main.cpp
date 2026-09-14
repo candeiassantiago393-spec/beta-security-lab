@@ -17,7 +17,9 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 uint32_t bootMs = 0;
 uint32_t lastPhotoMs = 0;
 bool cameraOk = false;
+bool paused = false;
 uint32_t photoCount = 0;
+bool bootWasPressed = false;
 
 void showScreen(const char *title, const char *line1, const char *line2 = "")
 {
@@ -52,6 +54,9 @@ bool setupPower()
     PMU.enableALDO3();
 
     PMU.setPowerKeyPressOffTime(XPOWERS_POWEROFF_4S);
+    PMU.disableIRQ(XPOWERS_AXP2101_ALL_IRQ);
+    PMU.clearIrqStatus();
+    PMU.enableIRQ(XPOWERS_AXP2101_PKEY_SHORT_IRQ);
     return true;
 }
 
@@ -129,6 +134,55 @@ bool captureAndSend()
     return true;
 }
 
+void showIdle()
+{
+    char extra[24];
+    snprintf(extra, sizeof(extra), "Fotos: %lu", (unsigned long)photoCount);
+    if (paused) {
+        showScreen("Entrada", "Pausa", extra);
+    } else {
+        showScreen("Entrada", "Aguardando", extra);
+    }
+}
+
+void takePhoto(const char *headline)
+{
+    showScreen("Entrada", headline, "A fotografar...");
+    delay(120);
+    bool ok = captureAndSend();
+    lastPhotoMs = millis();
+    if (ok) {
+        char extra[24];
+        snprintf(extra, sizeof(extra), "Fotos: %lu", (unsigned long)photoCount);
+        showScreen("Entrada", "Foto enviada", extra);
+        delay(1600);
+    } else {
+        showScreen("Entrada", "Falha foto", "Tenta outra vez");
+        delay(1200);
+    }
+    showIdle();
+}
+
+bool pwrShortPressed()
+{
+    PMU.getIrqStatus();
+    bool pressed = PMU.isPekeyShortPressIrq();
+    PMU.clearIrqStatus();
+    return pressed;
+}
+
+bool bootShortPressed()
+{
+    bool pressed = digitalRead(BOOT_BUTTON_PIN) == LOW;
+    bool edge = pressed && !bootWasPressed;
+    bootWasPressed = pressed;
+    if (!edge) {
+        return false;
+    }
+    delay(40);
+    return digitalRead(BOOT_BUTTON_PIN) == LOW;
+}
+
 void setup()
 {
     Serial.begin(115200);
@@ -138,6 +192,8 @@ void setup()
     }
 
     pinMode(PIR_INPUT_PIN, INPUT);
+    pinMode(BOOT_BUTTON_PIN, INPUT_PULLUP);
+    pinMode(PMU_INPUT_PIN, INPUT);
     Wire.begin(I2C_SDA, I2C_SCL);
 
     if (!setupPower()) {
@@ -173,44 +229,39 @@ void loop()
         return;
     }
 
+    if (pwrShortPressed()) {
+        paused = !paused;
+        showIdle();
+    }
+
+    if (bootShortPressed()) {
+        takePhoto("Foto manual");
+        delay(30);
+        return;
+    }
+
     uint32_t now = millis();
     if (now - bootMs < PIR_WARMUP_MS) {
-        delay(50);
+        delay(30);
         return;
     }
 
     static bool idleShown = false;
     if (!idleShown) {
-        showScreen("Entrada", "Aguardando", "Apontado a porta");
+        showIdle();
         idleShown = true;
     }
 
+    if (paused) {
+        delay(30);
+        return;
+    }
+
     bool motion = digitalRead(PIR_INPUT_PIN) == HIGH;
-    if (!motion) {
+    if (!motion || now - lastPhotoMs < PHOTO_COOLDOWN_MS) {
         delay(30);
         return;
     }
 
-    if (now - lastPhotoMs < PHOTO_COOLDOWN_MS) {
-        delay(30);
-        return;
-    }
-
-    showScreen("Entrada", "Movimento!", "A fotografar...");
-    delay(120);
-
-    bool ok = captureAndSend();
-    lastPhotoMs = millis();
-
-    if (ok) {
-        char extra[24];
-        snprintf(extra, sizeof(extra), "Fotos: %lu", (unsigned long)photoCount);
-        showScreen("Entrada", "Foto enviada", extra);
-        delay(1800);
-        showScreen("Entrada", "Aguardando", extra);
-    } else {
-        showScreen("Entrada", "Falha foto", "Tenta outra vez");
-        delay(1500);
-        showScreen("Entrada", "Aguardando", "Apontado a porta");
-    }
+    takePhoto("Movimento!");
 }
